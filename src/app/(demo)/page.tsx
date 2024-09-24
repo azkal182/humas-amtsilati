@@ -60,7 +60,7 @@ export default function DashboardPage() {
                 }
             })
             return res.data
-        } catch (e) {
+        } catch (e: any) {
             alert(e.error)
         }
 
