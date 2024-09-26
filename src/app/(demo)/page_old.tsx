@@ -12,19 +12,85 @@ import {
   BreadcrumbSeparator
 } from "@/components/ui/breadcrumb";
 import PageContainer from "@/components/page-container";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger
+} from "@/components/ui/dialog";
+import { useEffect, useState } from "react";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select";
+import { checkCourier } from "@/lib/resi-helper";
+import axios from "axios";
 import { searchUser } from "@/actions/sidafa";
-import { useEffect } from "react";
-import { AutoComplete } from "./auto_complete";
 
 export default function DashboardPage() {
-  const serachQuery = async (query: string) => {
-    const user = await searchUser(query);
-    console.log(user);
-  };
-  useEffect(() => {
-    serachQuery("dan");
-  }, []);
+  const [dialogIsOpen, setDialogIsOpen] = useState(false);
+  const [name, setName] = useState("");
+  const [courier, setCourier] = useState("");
+  const [date, setDate] = useState("");
+  const [asrama, setAsrama] = useState("");
+  const [resi, setResi] = useState("");
 
+  const dialogOpen = () => {
+    setDialogIsOpen(true);
+  };
+
+  const fetchCeckResi = async (courier: string) => {
+    try {
+      const { data: res } = await axios(
+        `${process.env.NEXT_PUBLIC_API_URL}/v1/track`,
+        {
+          params: {
+            api_key: process.env.NEXT_PUBLIC_API_KEY,
+            awb: resi,
+            courier
+          }
+        }
+      );
+      return res.data;
+    } catch (e: any) {
+      alert(e.error);
+    }
+  };
+
+  const setDataDummy = () => {
+    setName("john doe");
+    setAsrama("Ma'wa");
+    setDate("tes date");
+    setCourier("JNE");
+  };
+
+  const handleCheckCourier = async () => {
+    const result = checkCourier(resi);
+    if (result.data) {
+      const data = await fetchCeckResi(result.data);
+      setName(data.detail.receiver);
+      setCourier(data.summary.courier);
+      setDate(data.summary.date);
+      dialogOpen();
+    } else {
+      alert(result.error);
+    }
+  };
+
+  useEffect(() => {
+    searchUser("dan");
+  }, []);
   return (
     <ContentLayout title="Dashboard">
       <Breadcrumb>
@@ -41,7 +107,7 @@ export default function DashboardPage() {
         </BreadcrumbList>
       </Breadcrumb>
       <PageContainer>
-        <AutoComplete />
+        <div>test</div>
         {/* <div className="flex items-center gap-4">
           <Input
             value={resi}

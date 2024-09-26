@@ -1,28 +1,28 @@
 export function checkCourier(nomorResi: string) {
     const kurir = {
-        jne: /^[0-9]{15}$/,
-        pos: /^[0-9]{11}$/,
-        jnt: /^JP[0-9]{10}$/,
-        jnt_cargo: /^[0-9]{12}$/,
-        sicepat: /^[0-9]{12}$/,
-        tiki: /^[0-9]{12}$/,
-        anteraja: /^[0-9]{14}$/,
-        wahana: /^AGN[0-9]{5}$/,
-        ninja: /^NLIDAP[0-9]{10}$/,
-        lion: /^[0-9]{11}$/,
-        pcp: /^[0-9]{9}[A-Z]$/,
-        jet: /^[0-9]{12}$/,
-        rex: /^[0-9]{14}$/,
-        first: /^[0-9]{8}$/,
-        ide: /^IDS[0-9]{12}$/,
-        spx: /^ID[0-9]{11}X$/,
-        kgx: /^KGX[0-9]{12}$/,
-        sap: /^SMI[0-9]{17}$/,
-        jxe: /^[0-9]{10}$/,
-        rpx: /^[0-9]{12}$/,
-        lex: /^LXAD-[0-9]{10}$/,
-        indah_cargo: /^PNG[0-9A-Z]{13}$/,
-        dakota: /^[0-9]{9}[A-Z][0-9]{8}$/
+        jne: /^[0-9]{15}$/,  // Hanya angka 15 digit
+        pos: /^[0-9]{11}$/,  // Hanya angka 11 digit
+        jnt: /^JP[0-9]+$/,   // Diawali "JP" diikuti angka berapapun
+        jnt_cargo: /^[0-9]{12}$/,  // Hanya angka 12 digit
+        sicepat: /^[0-9]{12}$/,    // Hanya angka 12 digit
+        tiki: /^[0-9]{12}$/,       // Hanya angka 12 digit
+        anteraja: /^[0-9]{14}$/,   // Hanya angka 14 digit
+        wahana: /^AGN[0-9]+$/,     // Diawali "AGN" diikuti angka berapapun
+        ninja: /^NLIDAP[0-9]+$/,   // Diawali "NLIDAP" diikuti angka berapapun
+        lion: /^[0-9]{11}$/,       // Hanya angka 11 digit
+        pcp: /^[0-9]{9}[A-Z]$/,    // Angka 9 digit dan satu huruf
+        jet: /^[0-9]{12}$/,        // Hanya angka 12 digit
+        rex: /^[0-9]{14}$/,        // Hanya angka 14 digit
+        first: /^[0-9]{8}$/,       // Hanya angka 8 digit
+        ide: /^IDS[0-9]+$/,        // Diawali "IDS" diikuti angka berapapun
+        spx: /^ID[0-9]+X$/,        // Diawali "ID", angka berapapun, diakhiri "X"
+        kgx: /^KGX[0-9]+$/,        // Diawali "KGX" diikuti angka berapapun
+        sap: /^SMI[0-9]+$/,        // Diawali "SMI" diikuti angka berapapun
+        jxe: /^[0-9]{10}$/,        // Hanya angka 10 digit
+        rpx: /^[0-9]{12}$/,        // Hanya angka 12 digit
+        lex: /^LXAD-[0-9]+$/,      // Diawali "LXAD-" diikuti angka berapapun
+        indah_cargo: /^PNG[0-9A-Z]+$/,  // Diawali "PNG", angka atau huruf kombinasi
+        dakota: /^[0-9]{9}[A-Z][0-9]{8}$/  // Angka 9 digit, satu huruf, angka 8 digit
     };
 
     for (const [namaKurir, polaResi] of Object.entries(kurir)) {
@@ -33,5 +33,3 @@ export function checkCourier(nomorResi: string) {
 
     return {error: "Kurir tidak ditemukan atau nomor resi tidak valid"};
 }
-
-
