@@ -58,6 +58,7 @@ export const AutoComplete = () => {
         <AsyncSelect
           onChange={(value) => {
             setSelectedValue(value);
+            // @ts-ignore
             alert(value.pondok);
           }}
           cacheOptions
